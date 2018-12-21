@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+# custom
+import utils
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# custom; loading config secrets from file
+SECRETS = utils.load_yaml_from_file('secrets.yml')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd9d04_649mnj^^ata8f)q@3j-8fxrd5u74@zd#o8#20x_w9-x('
+SECRET_KEY = SECRETS['SECRET_KEY_BASE']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +80,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': SECRETS['DB_NAME'],
+        'USER': SECRETS['DB_USER'],
+        'PASSWORD':  SECRETS['DB_PASSWORD'],
+        'HOST': SECRETS['DB_HOST'],
+        'PORT': SECRETS['DB_PORT']
     }
 }
 
