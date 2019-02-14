@@ -6,9 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = ">=1.11.18"
+django = ">=1.11.19"
 psycopg2-binary = "*"
-pyyaml = ">=4.2b1"
+# pyyaml = ">=4.2b1"
 
 [requires]
 python_version = "2.7"
